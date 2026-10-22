@@ -1,0 +1,5 @@
+# WeChat channel for the task workbench; it registers through the workbench's `workbenchChannels` service.
+- insert:
+    - id: workbench-weixin
+      name: workbench-weixin
+      config: {}
