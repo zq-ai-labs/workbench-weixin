@@ -1,0 +1,58 @@
+{
+  "name": "workbench-weixin",
+  "version": "0.1.0",
+  "description": "任务工作台的微信渠道（只读）：按名单读取本机 Windows 微信 4.x 的聊天，整理成事项交给工作台",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zq-ai-labs/workbench-weixin.git"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "lib",
+    "system-en.json",
+    "wechat/bridge.py",
+    "wechat/wxread",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.client.json && node scripts/build-client.mjs",
+    "test": "pnpm run build && node --test test/*.test.mjs",
+    "check": "tsc --noEmit && tsc -p tsconfig.client.json",
+    "pack:plugin": "pnpm run build && pnpm pack --pack-destination dist"
+  },
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-locale"
+      ],
+      "platform": "web"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "~18.3.1",
+    "esbuild": "^0.25.0",
+    "react": "18.2.0",
+    "typescript": "^5.9.3"
+  }
+}
